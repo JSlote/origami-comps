@@ -5,7 +5,7 @@ In general, assume left-most horizontal crease is a valley
 Real answer = final answer * 2
 
 Implementation details:
-- each "face" is a tuple (row, column) whose entries are INTS (start @ (1,1))
+- each "face" is a tuple (row, column) (a.k.a (y,x)) whose entries are INTS (start @ (1,1))
 - graph will be a dictionary whose values are faces, dict[f] is a list of faces adjacent to f
 
 0) linearOrderings = []
@@ -25,7 +25,7 @@ testButterflyCondition: Joe
 
 """
 
-from queue import Queue
+from Queue import Queue
 
 directions = ["N", "S", "E", "W"]
 creases = ["M", "V"]
@@ -206,7 +206,8 @@ def getHamPaths(f,g,graph):
 
 # get all the possible linear orderings
 def getPossibleLinearOrderings(graph):
-	linOrders = []
+	# linOrders = []
+	linOrders = [[(1,1),(2,1),(2,2),(1,2),(1,3),(2,3)]]
 	
 	# for each pair of source s, sink t, determine all hampaths from s to t
 	# adds these paths to linOrders
@@ -214,8 +215,61 @@ def getPossibleLinearOrderings(graph):
 	return linOrders
 
 # tests whether this linear ordering satisfies the butterfly condition
-def testButterflyCondition(linearOrdering):
-	return True
+# assumes the linear ordering has no faces ommitted or doubled
+def satisfiesButterflyCondition(linearOrdering):
+	def checkAlong(direction, linOrder):
+		N = len(linOrder)/2;
+
+		# Trim the linear ordering as needed (depending on direction)
+		# to remove wings that have no pair
+		if direction == "E" and N%2 == 1:
+			linOrder = list(set(linOrder) - set([(1,N),(2,N)]))
+		elif direction == "W" and N%2 == 0:
+			linOrder = list(set(linOrder) - set([(1,1),(2,1),(1,N),(2,N)]))
+		elif direction == "W" and N%2 == 1:
+			linOrder = list(set(linOrder) - set([(1,1),(2,1)]))
+
+			#  No Bugs Here.
+			#
+			#     / ,, \ 	
+			#  |  \::::/ |
+			#   \__(  )__/
+			#  ____[  ]____
+			# /  // \/ \\  \
+			#   / | /\ | \
+			#   |  \__/  |
+			#    \      /
+
+		#given one wing of the butterfly, returns the other
+		def findPair(face, direction):
+			# import pdb; pdb.set_trace()
+			if direction == "N":
+				return ( face[0]+1 if face[0]%2 else face[0]-1, face[1] )
+			elif direction == "E":
+				return ( face[0] , face[1]+1 if face[1]%2 else face[1]-1)
+			elif direction == "W":
+				return ( face[0] , face[1]-1 if face[1]%2 else face[1]+1)
+
+		#the recursion
+		def check(linOrder):
+			#b-b-b-base condition
+			if linOrder == []:
+				return True
+
+			pair = findPair(linOrder[0], direction)
+
+			try:
+				pairLoc = linOrder.index(pair)
+			except ValueError, e:
+				return False
+
+			return check(linOrder[1:pairLoc-1]) and check(linOrder[pairLoc+1:])
+
+		return check(linOrder)
+
+	return checkAlong("N", linearOrdering) \
+	   and checkAlong("E", linearOrdering) \
+	   and checkAlong("W", linearOrdering)
 
 def main():
 
@@ -230,7 +284,7 @@ def main():
 		linOrders = getPossibleLinearOrderings(bidirectedGraph)
 
 		for linOrder in linOrders:
-			if testButterflyCondition(linOrder):
+			if satisfiesButterflyCondition(linOrder):
 				if pattern not in validPatterns:
 					validPatterns.append(pattern)
 
