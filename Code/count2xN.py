@@ -18,14 +18,10 @@ Implementation details:
 3) for order in linearOrderings:
 	if order satisfies the butterfly condition, return True
 4) return False
-
-Plan: 
-getPossibleLinearOrderings: Sam
-testButterflyCondition: Joe
-
 """
 
-from Queue import Queue
+from queue import Queue
+import itertools
 
 directions = ["N", "S", "E", "W"]
 creases = ["M", "V"]
@@ -200,18 +196,12 @@ def addBidirectedEdges(graph):
 
 	return newGraph
 
-# generate hamiltonian paths
-def getHamPaths(f,g,graph):
-	return [(1,2), (2,3)]
-
 # get all the possible linear orderings
 def getPossibleLinearOrderings(graph):
-	# linOrders = []
-	linOrders = [[(1,1),(2,1),(2,2),(1,2),(1,3),(2,3)]]
-	
-	# for each pair of source s, sink t, determine all hampaths from s to t
-	# adds these paths to linOrders
-
+	perms = itertools.permutations(graph.keys())
+	linOrders = []
+	for l in perms:
+		linOrders.append(l)
 	return linOrders
 
 # tests whether this linear ordering satisfies the butterfly condition
@@ -253,29 +243,28 @@ def satisfiesButterflyCondition(linearOrdering):
 		#the recursion
 		def check(linOrder):
 			#b-b-b-base condition
-			if linOrder == []:
+			if len(linOrder) == 0:
 				return True
 
 			pair = findPair(linOrder[0], direction)
 
 			try:
 				pairLoc = linOrder.index(pair)
-			except ValueError, e:
+			except ValueError:
 				return False
 
 			return check(linOrder[1:pairLoc-1]) and check(linOrder[pairLoc+1:])
 
 		return check(linOrder)
-
+	
 	return checkAlong("N", linearOrdering) \
 	   and checkAlong("E", linearOrdering) \
 	   and checkAlong("W", linearOrdering)
 
 def main():
 
-	N = 5
-	#listOfPatterns = generateAllCreasePatterns(N)
-	listOfPatterns = ["NEW"]
+	N = 2
+	listOfPatterns = generateAllCreasePatterns(N)
 
 	validPatterns = []
 	for pattern in listOfPatterns:
