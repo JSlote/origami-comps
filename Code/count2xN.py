@@ -22,6 +22,7 @@ Implementation details:
 
 from queue import Queue
 import itertools
+import sys
 
 directions = ["N", "S", "E", "W"]
 creases = ["M", "V"]
@@ -301,6 +302,16 @@ def satisfiesButterflyCondition(linOrder):
 
 				
 				noProblemYet = noProblemYet and not (b1f1 < b2f1 < b1f2 < b2f2)
+				noProblemYet = noProblemYet and not (b1f1 < b2f2 < b1f2 < b2f1)
+
+				noProblemYet = noProblemYet and not (b1f2 < b2f1 < b1f1 < b2f2)
+				noProblemYet = noProblemYet and not (b1f2 < b2f2 < b1f1 < b2f1)
+
+				noProblemYet = noProblemYet and not (b2f1 < b1f1 < b2f2 < b1f2)
+				noProblemYet = noProblemYet and not (b2f1 < b1f2 < b2f2 < b1f1)
+
+				noProblemYet = noProblemYet and not (b2f2 < b1f1 < b2f1 < b1f2)
+				noProblemYet = noProblemYet and not (b2f2 < b1f2 < b2f1 < b1f1)
 
 				if not noProblemYet:
 					return False
@@ -309,20 +320,31 @@ def satisfiesButterflyCondition(linOrder):
 
 def main():
 
-	N = 3
+	N = int(sys.argv[1])
 	listOfPatterns = generateAllCreasePatterns(N)
 	
 	validPatterns = []
+	invalidPatterns = []
 	for pattern in listOfPatterns:
 		directedGraph = generateGraphFromCreasePattern(pattern)
 		bidirectedGraph = addBidirectedEdges(directedGraph)
 		linOrders = getPossibleLinearOrderings(bidirectedGraph)
+
 
 		for linOrder in linOrders:
 			if satisfiesButterflyCondition(linOrder):
 				if pattern not in validPatterns:
 					validPatterns.append(pattern)
 
-	print(validPatterns)
+		if pattern not in validPatterns:
+			invalidPatterns.append(pattern)
+
+	f = open("outfile" + str(N) + ".txt", "w")
+
+	f.write("valid: " + str(len(validPatterns)) + "\n")
+	f.write("invalid: " + str(len(invalidPatterns)) + "\n")
+
+	f.write("valid: " + str(validPatterns) + "\n")
+	f.write("invalid: " + str(invalidPatterns) + "\n")
 
 main()
