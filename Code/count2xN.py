@@ -201,71 +201,117 @@ def getPossibleLinearOrderings(graph):
 	perms = itertools.permutations(graph.keys())
 	linOrders = []
 	for l in perms:
-		linOrders.append(l)
+		listL = []
+		for item in l:
+			listL.append(item)
+
+		linOrders.append(listL)
 	return linOrders
 
-# tests whether this linear ordering satisfies the butterfly condition
-# assumes the linear ordering has no faces ommitted or doubled
-def satisfiesButterflyCondition(linearOrdering):
-	def checkAlong(direction, linOrder):
-		N = len(linOrder)/2;
+# # tests whether this linear ordering satisfies the butterfly condition
+# # assumes the linear ordering has no faces ommitted or doubled
+# def satisfiesButterflyCondition(linearOrdering):
+# 	def checkAlong(direction, linOrder):
+# 		N = len(linOrder)/2;
 
-		# Trim the linear ordering as needed (depending on direction)
-		# to remove wings that have no pair
-		if direction == "E" and N%2 == 1:
-			linOrder = list(set(linOrder) - set([(1,N),(2,N)]))
-		elif direction == "W" and N%2 == 0:
-			linOrder = list(set(linOrder) - set([(1,1),(2,1),(1,N),(2,N)]))
-		elif direction == "W" and N%2 == 1:
-			linOrder = list(set(linOrder) - set([(1,1),(2,1)]))
+# 		# Trim the linear ordering as needed (depending on direction)
+# 		# to remove wings that have no pair
+# 		if direction == "E" and N%2 == 1:
+# 			linOrder = list(set(linOrder) - set([(1,N),(2,N)]))
+# 		elif direction == "W" and N%2 == 0:
+# 			linOrder = list(set(linOrder) - set([(1,1),(2,1),(1,N),(2,N)]))
+# 		elif direction == "W" and N%2 == 1:
+# 			linOrder = list(set(linOrder) - set([(1,1),(2,1)]))
 
-			#  No Bugs Here.
-			#
-			#     / ,, \ 	
-			#  |  \::::/ |
-			#   \__(  )__/
-			#  ____[  ]____
-			# /  // \/ \\  \
-			#   / | /\ | \
-			#   |  \__/  |
-			#    \      /
+# 			#  No Bugs Here.
+# 			#
+# 			#     / ,, \ 	
+# 			#  |  \::::/ |
+# 			#   \__(  )__/
+# 			#  ____[  ]____
+# 			# /  // \/ \\  \
+# 			#   / | /\ | \
+# 			#   |  \__/  |
+# 			#    \      /
 
-		#given one wing of the butterfly, returns the other
-		def findPair(face, direction):
-			# import pdb; pdb.set_trace()
-			if direction == "N":
-				return ( face[0]+1 if face[0]%2 else face[0]-1, face[1] )
-			elif direction == "E":
-				return ( face[0] , face[1]+1 if face[1]%2 else face[1]-1)
-			elif direction == "W":
-				return ( face[0] , face[1]-1 if face[1]%2 else face[1]+1)
+# 		#given one wing of the butterfly, returns the other
+# 		def findPair(face, direction):
+# 			# import pdb; pdb.set_trace()
+# 			if direction == "N":
+# 				return ( face[0]+1 if face[0]%2 else face[0]-1, face[1] )
+# 			elif direction == "E":
+# 				return ( face[0] , face[1]+1 if face[1]%2 else face[1]-1)
+# 			elif direction == "W":
+# 				return ( face[0] , face[1]-1 if face[1]%2 else face[1]+1)
 
-		#the recursion
-		def check(linOrder):
-			#b-b-b-base condition
-			if len(linOrder) == 0:
-				return True
+# 		#the recursion
+# 		def check(linOrder):
+# 			#b-b-b-base condition
+# 			if len(linOrder) == 0:
+# 				return True
 
-			pair = findPair(linOrder[0], direction)
+# 			pair = findPair(linOrder[0], direction)
 
-			try:
-				pairLoc = linOrder.index(pair)
-			except ValueError:
-				return False
+# 			try:
+# 				pairLoc = linOrder.index(pair)
+# 			except ValueError:
+# 				return False
 
-			return check(linOrder[1:pairLoc-1]) and check(linOrder[pairLoc+1:])
+# 			return check(linOrder[1:pairLoc-1]) and check(linOrder[pairLoc+1:])
 
-		return check(linOrder)
+# 		return check(linOrder)
 	
-	return checkAlong("N", linearOrdering) \
-	   and checkAlong("E", linearOrdering) \
-	   and checkAlong("W", linearOrdering)
+# 	return checkAlong("N", linearOrdering) \
+# 	   and checkAlong("E", linearOrdering) \
+# 	   and checkAlong("W", linearOrdering)
+
+def satisfiesButterflyCondition(linOrder):
+
+	# each butterfly is a tuple (face1, face2)
+	# no north butterflies in 2 x n
+	sButterflies = []
+	wButterflies = []
+	eButterflies = []
+	N = int(len(linOrder)/2)
+
+	# get the south butterflies (every vertical pair of faces)
+	for col in range(1, N):
+		sButterflies.append(((col,1), (col,2)))
+
+
+	for col in range(1, N, 2):
+		eButterflies.append(((col,1), (col + 1,1)))
+		eButterflies.append(((col,2), (col + 1,2)))
+
+	for col in range(1, N, 2):
+		wButterflies.append(((col,1), (col + 1,1)))
+		wButterflies.append(((col,2), (col + 1,2)))
+
+	noProblemYet = True
+	for butterflies in [eButterflies, wButterflies, sButterflies]:
+		
+		for i in range(len(butterflies)):
+			for j in range(i + 1, len(butterflies)):
+
+				b1f1 = linOrder.index(butterflies[i][0])
+				b1f2 = linOrder.index(butterflies[i][1])
+
+				b2f1 = linOrder.index(butterflies[j][0])
+				b2f2 = linOrder.index(butterflies[j][1])
+
+				
+				noProblemYet = noProblemYet and not (b1f1 < b2f1 < b1f2 < b2f2)
+
+				if not noProblemYet:
+					return False
+
+	return noProblemYet
 
 def main():
 
-	N = 2
+	N = 3
 	listOfPatterns = generateAllCreasePatterns(N)
-
+	
 	validPatterns = []
 	for pattern in listOfPatterns:
 		directedGraph = generateGraphFromCreasePattern(pattern)
