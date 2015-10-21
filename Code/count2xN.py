@@ -186,17 +186,27 @@ def isPatternValid(pattern):
 # tests whether this linear ordering satisfies the butterfly condition
 # assumes the linear ordering has no faces ommitted or doubled
 def satisfiesButterflyCondition(linearOrdering):
+
+	# new version has these requirements:
+	# given an arbitrary subset of the total linear ordering, check if it satisfies
+
+	# For each direction:
+	# 1. Remove all the faces in the partial lin ordering with no pair also in the linear ordering
+	# 2. Recursively parse the tree
+
+
 	def checkAlong(direction, linOrder):
 		N = len(linOrder)/2;
 
+		### IN PROGRESS ###
 		# Trim the linear ordering as needed (depending on direction)
 		# to remove wings that have no pair
-		if direction == "E" and N%2 == 1:
-			linOrder = list(set(linOrder) - set([(1,N),(2,N)]))
-		elif direction == "W" and N%2 == 0:
-			linOrder = list(set(linOrder) - set([(1,1),(2,1),(1,N),(2,N)]))
-		elif direction == "W" and N%2 == 1:
-			linOrder = list(set(linOrder) - set([(1,1),(2,1)]))
+		# if direction == "E" and N%2 == 1:
+		# 	linOrder = list(set(linOrder) - set([(1,N),(2,N)]))
+		# elif direction == "W" and N%2 == 0:
+		# 	linOrder = list(set(linOrder) - set([(1,1),(2,1),(1,N),(2,N)]))
+		# elif direction == "W" and N%2 == 1:
+		# 	linOrder = list(set(linOrder) - set([(1,1),(2,1)]))
 
 			#  No Bugs Here.
 			#
@@ -214,6 +224,8 @@ def satisfiesButterflyCondition(linearOrdering):
 			# import pdb; pdb.set_trace()
 			if direction == "N":
 				return ( face[0]+1 if face[0]%2 else face[0]-1, face[1] )
+			if direction == "S":
+				return ( face[0]+1 if face[0]%2 else face[0]-1, face[1] )
 			elif direction == "E":
 				return ( face[0] , face[1]+1 if face[1]%2 else face[1]-1)
 			elif direction == "W":
@@ -221,7 +233,7 @@ def satisfiesButterflyCondition(linearOrdering):
 
 		#the recursion
 		def check(linOrder):
-			#b-b-b-base condition
+			#base condition
 			if len(linOrder) == 0:
 				return True
 
@@ -229,14 +241,14 @@ def satisfiesButterflyCondition(linearOrdering):
 
 			try:
 				pairLoc = linOrder.index(pair)
-			except ValueError:
+			except ValueError: # no can do
 				return False
 
 			return check(linOrder[1:pairLoc-1]) and check(linOrder[pairLoc+1:])
 
 		return check(linOrder)
 	
-	return checkAlong("N", linearOrdering) \
+	return checkAlong("S", linearOrdering) \
 	   and checkAlong("E", linearOrdering) \
 	   and checkAlong("W", linearOrdering)
 
