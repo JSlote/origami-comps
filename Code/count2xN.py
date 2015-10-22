@@ -168,60 +168,6 @@ def isTherePathFromFtoG(f, g, graph):
 
 	return result
 
-# test if this incomplete order satisfies the butterfly conditions
-def isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace):
-	
-	# for dir in [N,S,W]:
-	# 	if newestFace's partner in is incompleteLinearOrder:
-	# 		if not spider function:
-	# 			return False
-
-	return True
-
-# tests if the incomplete linear order obeys the partial order given by the graph
-# only tests the newest face
-def isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph):
-	for face in incompleteLinearOrder:
-		if incompleteLinearOrder.index(face) > incompleteLinearOrder.index(newestFace):
-			if isTherePathFromFtoG(face, newestFace, graph):
-				return False
-		else:
-			if isTherePathFromFtoG(newestFace, face, graph):
-				# return False
-				pass
-
-	return True
-
-# recursively compute whether or not this incomplete linear order is completable
-def isIncompleteLinearOrderSatisfiable(incompleteLinearOrder, unorderedFaces, newestFace, graph):
-
-	# if this incomplete linear ordering is not satisfiable, adding more terms won't fix it. so we're done
-	if not isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace) or \
-	   not isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph):
-	   return False
-	
-	# base case: full linear ordering	
-	if len(unorderedFaces) == 0:
-		return True
-
-	# maybe get this face in a smarter way?
-	face = unorderedFaces.pop()
-	# add face to every possible location
-	for i in range(len(incompleteLinearOrder) + 1):
-		newIncompleteLinearOrder = incompleteLinearOrder[:i] + [face] + incompleteLinearOrder[i:]
-		result = isIncompleteLinearOrderSatisfiable(newIncompleteLinearOrder, unorderedFaces, face, graph)
-		if result:
-			return result
-
-# determine if a crease patter is foldable
-def isPatternValid(pattern):
-	graph = generateGraphFromCreasePattern(pattern)
-
-	unorderedFaces = list(graph.keys())
-	face = unorderedFaces.pop()
-	incompleteLinearOrder = [face]
-
-	return isIncompleteLinearOrderSatisfiable(incompleteLinearOrder, unorderedFaces, face, graph)
 
 # tests whether this linear ordering satisfies the butterfly condition
 # assumes the linear ordering has no faces ommitted or doubled
@@ -293,6 +239,60 @@ def satisfiesButterflyCondition(linearOrdering):
 	return checkAlong("S", linearOrdering) \
 	   and checkAlong("E", linearOrdering) \
 	   and checkAlong("W", linearOrdering)
+
+# test if this incomplete order satisfies the butterfly conditions
+def isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace):
+	
+	# for dir in [N,S,W]:
+	# 	if newestFace's partner in is incompleteLinearOrder:
+	# 		if not spider function:
+	# 			return False
+
+	return True
+
+# tests if the incomplete linear order obeys the partial order given by the graph
+# only tests the newest face
+def isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph):
+	for face in incompleteLinearOrder:
+		if incompleteLinearOrder.index(face) > incompleteLinearOrder.index(newestFace):
+			if isTherePathFromFtoG(face, newestFace, graph):
+				return False
+		elif incompleteLinearOrder.index(face) < incompleteLinearOrder.index(newestFace):
+			if isTherePathFromFtoG(newestFace, face, graph):
+				return False
+
+	return True
+
+# recursively compute whether or not this incomplete linear order is completable
+def isIncompleteLinearOrderSatisfiable(incompleteLinearOrder, unorderedFaces, newestFace, graph):
+
+	# if this incomplete linear ordering is not satisfiable, adding more terms won't fix it. so we're done
+	if not (isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace) and \
+	    	isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph)):
+	   return False
+	
+	# base case: full linear ordering	
+	if len(unorderedFaces) == 0:
+		return True
+
+	# maybe get this face in a smarter way?
+	face = unorderedFaces.pop()
+	# add face to every possible location
+	for i in range(len(incompleteLinearOrder) + 1):
+		newIncompleteLinearOrder = incompleteLinearOrder[:i] + [face] + incompleteLinearOrder[i:]
+		result = isIncompleteLinearOrderSatisfiable(newIncompleteLinearOrder, unorderedFaces, face, graph)
+		if result:
+			return result
+
+# determine if a crease patter is foldable
+def isPatternValid(pattern):
+	graph = generateGraphFromCreasePattern(pattern)
+
+	unorderedFaces = list(graph.keys())
+	face = unorderedFaces.pop()
+	incompleteLinearOrder = [face]
+
+	return isIncompleteLinearOrderSatisfiable(incompleteLinearOrder, unorderedFaces, face, graph)
 
 def main():
 
