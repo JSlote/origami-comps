@@ -7,38 +7,6 @@ Real answer = final answer * 2
 Implementation details:
 - each "face" is a tuple (column, row) (a.k.a (x,y)) whose entries are INTS (start @ (1,1))
 - graph will be a dictionary whose values are faces, dict[f] is a list of faces adjacent to f
-
-partialButterflySatisfied(partialLinearOrder, newestFace):
-	
-	for dir in [N,S,W]:
-		if newestFace's partner in is partialLinearOrder:
-			if not spider function:
-				return False
-
-	return True
-
-graphSatisfied(partialLinearOrder, newestFace, graph):
-	for each a in partialLinearOrder:
-		if a > newestFace:
-			make sure path from a to newestFace in graph
-		else:
-			make sure path from newestFace to a in graph
-
-function(partialLinearOrder, unorderedFaces, newestFace):
-	
-	if len(unorderedFaces) == 0:
-		return True
-
-	if partialButterflySatisfied(partialLinearOrder, newestFace) and graphSatisfied(partialLinearOrder, newestFace, graph):
-
-		pick a face from unorderedFaces
-		for way to add face to partialLinearOrder:
-			result = function(partialLinearOrderIncludingNewFace, unorderedFacesWithoutNewFace, newestFace)
-			if result:
-				return result
-
-	return False
-
 """
 
 from queue import Queue
@@ -177,11 +145,83 @@ def generateGraphFromCreasePattern(cp):
 
 	return graph
 
+# determine if there is a path from f to g
+def isTherePathFromFtoG(f, g, graph):
+	
+	q = Queue(len(graph.keys()))
+	seen = [f]
+
+	q.put(f)
+	
+	while not q.empty():
+		
+		u = q.get()
+		for v in graph[u]:
+			if v not in seen:
+				q.put(v)
+				seen.append(v)
+
+
+	result = False
+	if g in seen:
+		result = True
+
+	return result
+
+# test if this incomplete order satisfies the butterfly conditions
+def isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace):
+	
+	# for dir in [N,S,W]:
+	# 	if newestFace's partner in is incompleteLinearOrder:
+	# 		if not spider function:
+	# 			return False
+
+	return True
+
+# tests if the incomplete linear order obeys the partial order given by the graph
+# only tests the newest face
+def isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph):
+	for face in incompleteLinearOrder:
+		if incompleteLinearOrder.index(face) > incompleteLinearOrder.index(newestFace):
+			if isTherePathFromFtoG(face, newestFace, graph):
+				return False
+		else:
+			if isTherePathFromFtoG(newestFace, face, graph):
+				# return False
+				pass
+
+	return True
+
+# recursively compute whether or not this incomplete linear order is completable
+def isIncompleteLinearOrderSatisfiable(incompleteLinearOrder, unorderedFaces, newestFace, graph):
+
+	# if this incomplete linear ordering is not satisfiable, adding more terms won't fix it. so we're done
+	if not isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace) or \
+	   not isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph):
+	   return False
+	
+	# base case: full linear ordering	
+	if len(unorderedFaces) == 0:
+		return True
+
+	# maybe get this face in a smarter way?
+	face = unorderedFaces.pop()
+	# add face to every possible location
+	for i in range(len(incompleteLinearOrder) + 1):
+		newIncompleteLinearOrder = incompleteLinearOrder[:i] + [face] + incompleteLinearOrder[i:]
+		result = isIncompleteLinearOrderSatisfiable(newIncompleteLinearOrder, unorderedFaces, face, graph)
+		if result:
+			return result
+
 # determine if a crease patter is foldable
 def isPatternValid(pattern):
 	graph = generateGraphFromCreasePattern(pattern)
 
-	return True
+	unorderedFaces = list(graph.keys())
+	face = unorderedFaces.pop()
+	incompleteLinearOrder = [face]
+
+	return isIncompleteLinearOrderSatisfiable(incompleteLinearOrder, unorderedFaces, face, graph)
 
 # tests whether this linear ordering satisfies the butterfly condition
 # assumes the linear ordering has no faces ommitted or doubled
@@ -191,7 +231,7 @@ def satisfiesButterflyCondition(linearOrdering):
 	# given an arbitrary subset of the total linear ordering, check if it satisfies
 
 	# For each direction:
-	# 1. Remove all the faces in the partial lin ordering with no pair also in the linear ordering
+	# 1. Remove all the faces in the incomplete lin ordering with no pair also in the linear ordering
 	# 2. Recursively parse the tree
 
 
@@ -208,16 +248,18 @@ def satisfiesButterflyCondition(linearOrdering):
 		# elif direction == "W" and N%2 == 1:
 		# 	linOrder = list(set(linOrder) - set([(1,1),(2,1)]))
 
-			#  No Bugs Here.
-			#
-			#     / ,, \ 	
-			#  |  \::::/ |
-			#   \__(  )__/
-			#  ____[  ]____
-			# /  // \/ \\  \
-			#   / | /\ | \
-			#   |  \__/  |
-			#    \      /
+		return True
+
+		#  No Bugs Here.
+		#
+		#     / ,, \ 	
+		#  |  \::::/ |
+		#   \__(  )__/
+		#  ____[  ]____
+		# /  // \/ \\  \
+		#   / | /\ | \
+		#   |  \__/  |
+		#    \      /
 
 		#given one wing of the butterfly, returns the other
 		def findPair(face, direction):
