@@ -240,15 +240,71 @@ def satisfiesButterflyCondition(linearOrdering):
 	   and checkAlong("E", linearOrdering) \
 	   and checkAlong("W", linearOrdering)
 
+def bruteForceButterflyCheck(linOrder):
+
+	# each butterfly is a tuple (face1, face2)
+	# no north butterflies in 2 x n
+	sButterflies = []
+	wButterflies = []
+	eButterflies = []
+	N = int(len(linOrder)/2)
+
+	# get the south butterflies (every vertical pair of faces)
+	for col in range(1, N):
+		if (col,1) in linOrder and (col,2) in linOrder:
+			sButterflies.append(((col,1), (col,2)))
+
+
+	for col in range(1, N, 2):
+		if (col,1) in linOrder and (col + 1,1) in linOrder:
+			eButterflies.append(((col,1), (col + 1,1)))
+		if (col,2) in linOrder and (col + 1,2) in linOrder:
+			eButterflies.append(((col,2), (col + 1,2)))
+
+	for col in range(2, N, 2):
+		if (col,1) in linOrder and (col - 1,1) in linOrder:
+			eButterflies.append(((col,1), (col - 1,1)))
+		if (col,2) in linOrder and (col - 1,2) in linOrder:
+			eButterflies.append(((col,2), (col - 1,2)))
+
+	noProblemYet = True
+	for butterflies in [eButterflies, wButterflies, sButterflies]:
+		
+		for i in range(len(butterflies)):
+			for j in range(i + 1, len(butterflies)):
+
+				b1f1 = linOrder.index(butterflies[i][0])
+				b1f2 = linOrder.index(butterflies[i][1])
+
+				b2f1 = linOrder.index(butterflies[j][0])
+				b2f2 = linOrder.index(butterflies[j][1])
+
+				
+				noProblemYet = noProblemYet and not (b1f1 < b2f1 < b1f2 < b2f2)
+				noProblemYet = noProblemYet and not (b1f1 < b2f2 < b1f2 < b2f1)
+
+				noProblemYet = noProblemYet and not (b1f2 < b2f1 < b1f1 < b2f2)
+				noProblemYet = noProblemYet and not (b1f2 < b2f2 < b1f1 < b2f1)
+
+				noProblemYet = noProblemYet and not (b2f1 < b1f1 < b2f2 < b1f2)
+				noProblemYet = noProblemYet and not (b2f1 < b1f2 < b2f2 < b1f1)
+
+				noProblemYet = noProblemYet and not (b2f2 < b1f1 < b2f1 < b1f2)
+				noProblemYet = noProblemYet and not (b2f2 < b1f2 < b2f1 < b1f1)
+
+				if not noProblemYet:
+					return False
+
+	return noProblemYet
+
 # test if this incomplete order satisfies the butterfly conditions
 def isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace):
 	
-	# for dir in [N,S,W]:
+	# for dir in [S,W,E]:
 	# 	if newestFace's partner in is incompleteLinearOrder:
 	# 		if not spider function:
 	# 			return False
-
-	return True
+	return bruteForceButterflyCheck(incompleteLinearOrder)
 
 # tests if the incomplete linear order obeys the partial order given by the graph
 # only tests the newest face
@@ -313,10 +369,11 @@ def main():
 	#f = open("outfile" + str(N) + ".txt", "w")
 	f = sys.stdout
 
+	f.write("valid: " + str(validPatterns) + "\n")
+	f.write("invalid: " + str(invalidPatterns) + "\n")
+
 	f.write("valid: " + str(len(validPatterns)) + "\n")
 	f.write("invalid: " + str(len(invalidPatterns)) + "\n")
 
-	f.write("valid: " + str(validPatterns) + "\n")
-	f.write("invalid: " + str(invalidPatterns) + "\n")
 
 main()
