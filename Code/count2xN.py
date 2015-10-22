@@ -19,7 +19,6 @@ creases = ["M", "V"]
 
 #given one wing of the butterfly, returns the other
 def findPair(face, direction):
-	# import pdb; pdb.set_trace()
 	if direction == "N":
 		# if odd then look up, if even look down
 		return ( face[0] , face[1]-1 if face[1]%2 else face[1]+1 )
@@ -203,7 +202,6 @@ def checkButterfliesAlong(direction, linOrder):
 
 		return check(incompleteLinOrder[1:pairLoc-1]) and check(incompleteLinOrder[pairLoc+1:])
 
-	# import pdb; pdb.set_trace()
 	# for this direction, remove those faces that don't have pairs
 	dirLinOrder = [];
 	for face in linOrder:
@@ -274,6 +272,7 @@ def isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newest
 	
 	for direction in ["S","E","W"]:
 		if findPair(newestFace, direction) in incompleteLinearOrder:
+			# import pdb; pdb.set_trace()
 			if not checkButterfliesAlong(direction, incompleteLinearOrder):
 				return False
 	return True #bruteForceButterflyCheck(incompleteLinearOrder)
@@ -310,7 +309,7 @@ def isIncompleteLinearOrderSatisfiable(incompleteLinearOrder, unorderedFaces, ne
 		newIncompleteLinearOrder = incompleteLinearOrder[:i] + [face] + incompleteLinearOrder[i:]
 		result = isIncompleteLinearOrderSatisfiable(newIncompleteLinearOrder, unorderedFaces, face, graph)
 		if result:
-			return result
+			return result # i.e., return true
 
 # determine if a crease patter is foldable
 def isPatternValid(pattern):
@@ -327,7 +326,7 @@ def main():
 	try:
 		N = int(sys.argv[1]) - 1
 	except IndexError, e:
-		N = 6-1
+		N = 4-1
 
 	
 	listOfPatterns = generateAllCreasePatterns(N)
