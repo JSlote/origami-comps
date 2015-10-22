@@ -9,7 +9,7 @@ Implementation details:
 - graph will be a dictionary whose values are faces, dict[f] is a list of faces adjacent to f
 """
 
-from queue import Queue
+from Queue import Queue
 import itertools
 import sys
 import time
@@ -17,6 +17,18 @@ import time
 directions = ["N", "S", "E", "W"]
 creases = ["M", "V"]
 
+#given one wing of the butterfly, returns the other
+def findPair(face, direction):
+	# import pdb; pdb.set_trace()
+	if direction == "N":
+		# if odd then look up, if even look down
+		return ( face[0] , face[1]-1 if face[1]%2 else face[1]+1 )
+	if direction == "S":
+		return ( face[0] , face[1]+1 if face[1]%2 else face[1]-1 )
+	elif direction == "E":
+		return ( face[0]+1 if face[0]%2 else face[0]-1 , face[1] )
+	elif direction == "W":
+		return ( face[0]-1 if face[0]%2 else face[0]+1 , face[1] )
 
 # recursively generate all NSEW orderings possible
 def generateAllCreasePatterns(N):
@@ -172,73 +184,33 @@ def isTherePathFromFtoG(f, g, graph):
 # tests whether this linear ordering satisfies the butterfly condition
 # assumes the linear ordering has no faces ommitted or doubled
 def satisfiesButterflyCondition(linearOrdering):
-
-	# new version has these requirements:
-	# given an arbitrary subset of the total linear ordering, check if it satisfies
-
-	# For each direction:
-	# 1. Remove all the faces in the incomplete lin ordering with no pair also in the linear ordering
-	# 2. Recursively parse the tree
-
-
-	def checkAlong(direction, linOrder):
-		N = len(linOrder)/2;
-
-		### IN PROGRESS ###
-		# Trim the linear ordering as needed (depending on direction)
-		# to remove wings that have no pair
-		# if direction == "E" and N%2 == 1:
-		# 	linOrder = list(set(linOrder) - set([(1,N),(2,N)]))
-		# elif direction == "W" and N%2 == 0:
-		# 	linOrder = list(set(linOrder) - set([(1,1),(2,1),(1,N),(2,N)]))
-		# elif direction == "W" and N%2 == 1:
-		# 	linOrder = list(set(linOrder) - set([(1,1),(2,1)]))
-
-		return True
-
-		#  No Bugs Here.
-		#
-		#     / ,, \ 	
-		#  |  \::::/ |
-		#   \__(  )__/
-		#  ____[  ]____
-		# /  // \/ \\  \
-		#   / | /\ | \
-		#   |  \__/  |
-		#    \      /
-
-		#given one wing of the butterfly, returns the other
-		def findPair(face, direction):
-			# import pdb; pdb.set_trace()
-			if direction == "N":
-				return ( face[0]+1 if face[0]%2 else face[0]-1, face[1] )
-			if direction == "S":
-				return ( face[0]+1 if face[0]%2 else face[0]-1, face[1] )
-			elif direction == "E":
-				return ( face[0] , face[1]+1 if face[1]%2 else face[1]-1)
-			elif direction == "W":
-				return ( face[0] , face[1]-1 if face[1]%2 else face[1]+1)
-
-		#the recursion
-		def check(linOrder):
-			#base condition
-			if len(linOrder) == 0:
-				return True
-
-			pair = findPair(linOrder[0], direction)
-
-			try:
-				pairLoc = linOrder.index(pair)
-			except ValueError: # no can do
-				return False
-
-			return check(linOrder[1:pairLoc-1]) and check(linOrder[pairLoc+1:])
-
-		return check(linOrder)
-	
 	return checkAlong("S", linearOrdering) \
 	   and checkAlong("E", linearOrdering) \
 	   and checkAlong("W", linearOrdering)
+
+#check butterflies along a particular direction
+def checkButterfliesAlong(direction, linOrder):
+	def check(incompleteLinOrder):
+		if len(incompleteLinOrder) == 0:
+			return True
+
+		pair = findPair(incompleteLinOrder[0], direction)
+
+		try:
+			pairLoc = incompleteLinOrder.index(pair)
+		except ValueError: # no can do
+			return False
+
+		return check(incompleteLinOrder[1:pairLoc-1]) and check(incompleteLinOrder[pairLoc+1:])
+
+	# import pdb; pdb.set_trace()
+	# for this direction, remove those faces that don't have pairs
+	dirLinOrder = [];
+	for face in linOrder:
+		if findPair(face, direction) in linOrder:
+			dirLinOrder.append(face)
+
+	return check(dirLinOrder)
 
 def bruteForceButterflyCheck(linOrder):
 
@@ -300,11 +272,11 @@ def bruteForceButterflyCheck(linOrder):
 # test if this incomplete order satisfies the butterfly conditions
 def isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace):
 	
-	# for dir in [S,W,E]:
-	# 	if newestFace's partner in is incompleteLinearOrder:
-	# 		if not spider function:
-	# 			return False
-	return bruteForceButterflyCheck(incompleteLinearOrder)
+	for direction in ["S","E","W"]:
+		if findPair(newestFace, direction) in incompleteLinearOrder:
+			if not checkButterfliesAlong(direction, incompleteLinearOrder):
+				return False
+	return True #bruteForceButterflyCheck(incompleteLinearOrder)
 
 # tests if the incomplete linear order obeys the partial order given by the graph
 # only tests the newest face
@@ -352,7 +324,11 @@ def isPatternValid(pattern):
 
 def main():
 
-	N = int(sys.argv[1]) - 1
+	try:
+		N = int(sys.argv[1]) - 1
+	except IndexError, e:
+		N = 6-1
+
 	
 	listOfPatterns = generateAllCreasePatterns(N)
 	
