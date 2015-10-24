@@ -8,8 +8,14 @@ Implementation details:
 - each "face" is a tuple (column, row) (a.k.a (x,y)) whose entries are INTS (start @ (1,1))
 - graph will be a dictionary whose values are faces, dict[f] is a list of faces adjacent to f
 """
-
-from Queue import Queue
+try:
+	from Queue import Queue
+except Exception, e:
+	pass
+try:
+	from queue import Queue
+except Exception, e:
+	pass
 import itertools
 import sys
 import time
@@ -18,6 +24,7 @@ directions = ["N", "S", "E", "W"]
 creases = ["M", "V"]
 
 #given one wing of the butterfly, returns the other
+#doesn't worry about paper boundary (returns negative faces if necessary)
 def findPair(face, direction):
 	if direction == "N":
 		# if odd then look up, if even look down
@@ -47,7 +54,6 @@ def generateAllCreasePatterns(N):
 			allCreasePatterns.append(thisCreasePattern)
 
 	return allCreasePatterns
-
 
 # generate graph from crease pattern
 def generateGraphFromCreasePattern(cp):
@@ -172,109 +178,48 @@ def isTherePathFromFtoG(f, g, graph):
 				q.put(v)
 				seen.append(v)
 
-
 	result = False
 	if g in seen:
 		result = True
 
 	return result
 
+# test if this incomplete order satisfies the butterfly conditions
+def doesNewFaceBreakButterflyProp(incompleteLinearOrder, newestFace):
+	# print "investigating", newestFace
 
-# tests whether this linear ordering satisfies the butterfly condition
-# assumes the linear ordering has no faces ommitted or doubled
-def satisfiesButterflyCondition(linearOrdering):
-	return checkAlong("S", linearOrdering) \
-	   and checkAlong("E", linearOrdering) \
-	   and checkAlong("W", linearOrdering)
+	for direction in ["S","E","W"]:
+		#newestFace can only invalidate the butterfly condition if it has a pair
+		pair = findPair(newestFace, direction)
+		if pair in incompleteLinearOrder:
+			#supposing the newestFace *does* have a pair:
 
-#check butterflies along a particular direction
-def checkButterfliesAlong(direction, linOrder):
-	def check(incompleteLinOrder):
-		if len(incompleteLinOrder) == 0:
-			return True
+			#remove those faces that don't have pairs
+			cleanedIncompleteLinearOrder = []
+			for face in incompleteLinearOrder:
+				if findPair(face, direction) in incompleteLinearOrder:
+					cleanedIncompleteLinearOrder.append(face)
+					
+			#grab the the indices of our new butterfly
+			newestFaceIndex = cleanedIncompleteLinearOrder.index(newestFace)
+			pairIndex 		= cleanedIncompleteLinearOrder.index(pair)
 
-		pair = findPair(incompleteLinOrder[0], direction)
+			#we're using this indices to select a subarray, so make sure they're in order
+			subArrIndices = sorted([newestFaceIndex, pairIndex])
 
-		try:
-			pairLoc = incompleteLinOrder.index(pair)
-		except ValueError: # no can do
-			return False
+			#get the faces within the butterfly
+			subLinOrder = cleanedIncompleteLinearOrder[subArrIndices[0]+1:subArrIndices[1]];
 
-		return check(incompleteLinOrder[1:pairLoc-1]) and check(incompleteLinOrder[pairLoc+1:])
-
-	# for this direction, remove those faces that don't have pairs
-	dirLinOrder = [];
-	for face in linOrder:
-		if findPair(face, direction) in linOrder:
-			dirLinOrder.append(face)
-
-	return check(dirLinOrder)
-
-def bruteForceButterflyCheck(linOrder):
-
-	# each butterfly is a tuple (face1, face2)
-	# no north butterflies in 2 x n
-	sButterflies = []
-	wButterflies = []
-	eButterflies = []
-	N = int(len(linOrder)/2)
-
-	# get the south butterflies (every vertical pair of faces)
-	for col in range(1, N):
-		if (col,1) in linOrder and (col,2) in linOrder:
-			sButterflies.append(((col,1), (col,2)))
-
-
-	for col in range(1, N, 2):
-		if (col,1) in linOrder and (col + 1,1) in linOrder:
-			eButterflies.append(((col,1), (col + 1,1)))
-		if (col,2) in linOrder and (col + 1,2) in linOrder:
-			eButterflies.append(((col,2), (col + 1,2)))
-
-	for col in range(2, N, 2):
-		if (col,1) in linOrder and (col - 1,1) in linOrder:
-			eButterflies.append(((col,1), (col - 1,1)))
-		if (col,2) in linOrder and (col - 1,2) in linOrder:
-			eButterflies.append(((col,2), (col - 1,2)))
-
-	noProblemYet = True
-	for butterflies in [eButterflies, wButterflies, sButterflies]:
-		
-		for i in range(len(butterflies)):
-			for j in range(i + 1, len(butterflies)):
-
-				b1f1 = linOrder.index(butterflies[i][0])
-				b1f2 = linOrder.index(butterflies[i][1])
-
-				b2f1 = linOrder.index(butterflies[j][0])
-				b2f2 = linOrder.index(butterflies[j][1])
-
-				
-				noProblemYet = noProblemYet and not (b1f1 < b2f1 < b1f2 < b2f2)
-				noProblemYet = noProblemYet and not (b1f1 < b2f2 < b1f2 < b2f1)
-
-				noProblemYet = noProblemYet and not (b1f2 < b2f1 < b1f1 < b2f2)
-				noProblemYet = noProblemYet and not (b1f2 < b2f2 < b1f1 < b2f1)
-
-				noProblemYet = noProblemYet and not (b2f1 < b1f1 < b2f2 < b1f2)
-				noProblemYet = noProblemYet and not (b2f1 < b1f2 < b2f2 < b1f1)
-
-				noProblemYet = noProblemYet and not (b2f2 < b1f1 < b2f1 < b1f2)
-				noProblemYet = noProblemYet and not (b2f2 < b1f2 < b2f1 < b1f1)
-
-				if not noProblemYet:
+			#if newestFace's butterfly doesn't stack or nest, there will be a lone face inside
+			for face in subLinOrder:
+				if findPair(face, direction) not in subLinOrder:
+					# print "incompleteLinearOrder", incompleteLinearOrder
+					# print "doesn't check out \n\n"
 					return False
 
-	return noProblemYet
+	# print "incompleteLinearOrder", incompleteLinearOrder
+	# print "checks out \n\n"
 
-# test if this incomplete order satisfies the butterfly conditions
-def isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace):
-	
-	for direction in ["S","E","W"]:
-		if findPair(newestFace, direction) in incompleteLinearOrder:
-			# import pdb; pdb.set_trace()
-			if not checkButterfliesAlong(direction, incompleteLinearOrder):
-				return False
 	return True #bruteForceButterflyCheck(incompleteLinearOrder)
 
 # tests if the incomplete linear order obeys the partial order given by the graph
@@ -293,26 +238,38 @@ def isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace
 # recursively compute whether or not this incomplete linear order is completable
 def isIncompleteLinearOrderSatisfiable(incompleteLinearOrder, unorderedFaces, newestFace, graph):
 
+	# print "incompleteLinearOrder", incompleteLinearOrder
+	# print "newestFace", newestFace
+	# print "butterfly satisfied?", doesNewFaceBreakButterflyProp(incompleteLinearOrder, newestFace)
+	# print "graph satisfied?", isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph)
 	# if this incomplete linear ordering is not satisfiable, adding more terms won't fix it. so we're done
-	if not (isIncompleteLinearOrderConsistentWithButterfly(incompleteLinearOrder, newestFace) and \
+	if not (doesNewFaceBreakButterflyProp(incompleteLinearOrder, newestFace) and \
 	    	isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph)):
-	   return False
-	
+		# print "something is broken"
+		# print
+		return (False, None)
+	# print "\n"
+
 	# base case: full linear ordering	
 	if len(unorderedFaces) == 0:
-		return True
+		return (True, incompleteLinearOrder)
 
 	# maybe get this face in a smarter way?
-	face = unorderedFaces.pop()
+	# face = unorderedFaces.pop()
+	face = unorderedFaces[-1]
+
 	# add face to every possible location
 	for i in range(len(incompleteLinearOrder) + 1):
 		newIncompleteLinearOrder = incompleteLinearOrder[:i] + [face] + incompleteLinearOrder[i:]
-		result = isIncompleteLinearOrderSatisfiable(newIncompleteLinearOrder, unorderedFaces, face, graph)
-		if result:
-			return result # i.e., return true
+		result = isIncompleteLinearOrderSatisfiable(newIncompleteLinearOrder, unorderedFaces[:-1], face, graph)
+		if result[0]:
+			return result
 
-# determine if a crease patter is foldable
+	return (False, None)
+
+# determine if a crease pattern is foldable
 def isPatternValid(pattern):
+	
 	graph = generateGraphFromCreasePattern(pattern)
 
 	unorderedFaces = list(graph.keys())
@@ -326,20 +283,24 @@ def main():
 	try:
 		N = int(sys.argv[1]) - 1
 	except IndexError, e:
-		N = 4-1
-
+		N = 6-1
 	
 	listOfPatterns = generateAllCreasePatterns(N)
 	
 	validPatterns = []
 	invalidPatterns = []
 
-	for pattern in listOfPatterns:
-
-		if isPatternValid(pattern):
+	patternNo = len(listOfPatterns)
+	for i in range(patternNo):
+		pattern = listOfPatterns[i]
+		if isPatternValid(pattern)[0]:
 			validPatterns.append(pattern)
 		else:
 			invalidPatterns.append(pattern)
+
+		percentDone = (100*i) / patternNo
+		sys.stdout.write("\r%d%%" % percentDone)
+		sys.stdout.flush()
 
 	#f = open("outfile" + str(N) + ".txt", "w")
 	f = sys.stdout
