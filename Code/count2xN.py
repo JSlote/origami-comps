@@ -186,7 +186,6 @@ def isTherePathFromFtoG(f, g, graph):
 
 # test if this incomplete order satisfies the butterfly conditions
 def doesNewFaceBreakButterflyProp(incompleteLinearOrder, newestFace):
-	# print "investigating", newestFace
 
 	for direction in ["S","E","W"]:
 		#newestFace can only invalidate the butterfly condition if it has a pair
@@ -213,12 +212,7 @@ def doesNewFaceBreakButterflyProp(incompleteLinearOrder, newestFace):
 			#if newestFace's butterfly doesn't stack or nest, there will be a lone face inside
 			for face in subLinOrder:
 				if findPair(face, direction) not in subLinOrder:
-					# print "incompleteLinearOrder", incompleteLinearOrder
-					# print "doesn't check out \n\n"
 					return False
-
-	# print "incompleteLinearOrder", incompleteLinearOrder
-	# print "checks out \n\n"
 
 	return True #bruteForceButterflyCheck(incompleteLinearOrder)
 
@@ -238,17 +232,10 @@ def isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace
 # recursively compute whether or not this incomplete linear order is completable
 def isIncompleteLinearOrderSatisfiable(incompleteLinearOrder, unorderedFaces, newestFace, graph):
 
-	# print "incompleteLinearOrder", incompleteLinearOrder
-	# print "newestFace", newestFace
-	# print "butterfly satisfied?", doesNewFaceBreakButterflyProp(incompleteLinearOrder, newestFace)
-	# print "graph satisfied?", isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph)
 	# if this incomplete linear ordering is not satisfiable, adding more terms won't fix it. so we're done
 	if not (doesNewFaceBreakButterflyProp(incompleteLinearOrder, newestFace) and \
 	    	isIncompleteLinearOrderConsistentWithGraph(incompleteLinearOrder, newestFace, graph)):
-		# print "something is broken"
-		# print
 		return (False, None)
-	# print "\n"
 
 	# base case: full linear ordering	
 	if len(unorderedFaces) == 0:
@@ -281,7 +268,7 @@ def isPatternValid(pattern):
 def main():
 
 	try:
-		N = int(sys.argv[1]) - 1
+		N = max(int(sys.argv[1]) - 1, 1)
 	except IndexError, e:
 		N = 6-1
 	
@@ -301,6 +288,7 @@ def main():
 		percentDone = (100*i) / patternNo
 		sys.stdout.write("\r%d%%" % percentDone)
 		sys.stdout.flush()
+	sys.stdout.write("\n")
 
 	#f = open("outfile" + str(N) + ".txt", "w")
 	f = sys.stdout
