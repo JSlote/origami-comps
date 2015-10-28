@@ -1,0 +1,2 @@
+minimally invalid: ['NESWN', 'NEWEN', 'NEWES', 'NWEWN', 'NWEWS', 'SENWS', 'SEWEN', 'SEWES', 'SWEWN', 'SWEWS']
+non-min invalid: ['NNEWN', 'NNEWS', 'NSEWN', 'NSEWS', 'NEWNN', 'NEWNS', 'NEWNE', 'NEWNW', 'NEWSN', 'NEWSS', 'NEWSE', 'NEWSW', 'SNEWN', 'SNEWS', 'SSEWN', 'SSEWS', 'SEWNN', 'SEWNS', 'SEWNE', 'SEWNW', 'SEWSN', 'SEWSS', 'SEWSE', 'SEWSW', 'ENEWN', 'ENEWS', 'ESEWN', 'ESEWS', 'WNEWN', 'WNEWS', 'WSEWN', 'WSEWS']
