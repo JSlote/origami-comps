@@ -10,11 +10,11 @@ Implementation details:
 """
 try:
 	from Queue import Queue
-except Exception, e:
+except:
 	pass
 try:
 	from queue import Queue
-except Exception, e:
+except:
 	pass
 import itertools
 import sys
@@ -269,7 +269,7 @@ def main():
 
 	try:
 		N = max(int(sys.argv[1]) - 1, 1)
-	except IndexError, e:
+	except:
 		N = 6-1
 	
 	listOfPatterns = generateAllCreasePatterns(N)
