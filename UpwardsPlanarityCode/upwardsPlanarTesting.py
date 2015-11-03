@@ -72,8 +72,8 @@ def convertCreasePatternToGraph(cp):
 
 		for i in range(n):
 			if cp[j][i] == "N":
-				if leftHorizontal == "V" and (i+j) % 2 == 0 or \
-				   	leftHorizontal == "M" and (i+j) % 2 == 1:
+				if (leftHorizontal == "V" and (i+j) % 2 == 0) or \
+				   	(leftHorizontal == "M" and (i+j) % 2 == 1):
 
 					adjList[(i,j)].append((i,j+1))
 					adjList[(i+1,j)].append((i,j))
@@ -87,8 +87,8 @@ def convertCreasePatternToGraph(cp):
 					adjList[(i+1,j)].append((i+1,j+1))
 				
 			if cp[j][i] == "S":
-				if leftHorizontal == "V" and (i+j) % 2 == 0 or \
-				   	leftHorizontal == "M" and (i+j) % 2 == 1:
+				if (leftHorizontal == "V" and (i+j) % 2 == 0) or \
+				   	(leftHorizontal == "M" and (i+j) % 2 == 1):
 
 					adjList[(i,j)].append((i,j+1))
 					adjList[(i,j)].append((i+1,j))
@@ -102,8 +102,8 @@ def convertCreasePatternToGraph(cp):
 					adjList[(i+1,j)].append((i+1,j+1))
 			
 			if cp[j][i] == "W":
-				if leftHorizontal == "V" and (i+j) % 2 == 0 or \
-				   	leftHorizontal == "M" and (i+j) % 2 == 1:
+				if (leftHorizontal == "V" and (i+j) % 2 == 0) or \
+				   	(leftHorizontal == "M" and (i+j) % 2 == 1):
 
 					adjList[(i,j)].append((i,j+1))
 					adjList[(i+1,j)].append((i,j))
@@ -123,8 +123,8 @@ def convertCreasePatternToGraph(cp):
 					leftHorizontal = "V"
 
 			if cp[j][i] == "E":
-				if leftHorizontal == "V" and (i+j) % 2 == 0 or \
-				   	leftHorizontal == "M" and (i+j) % 2 == 1:
+				if (leftHorizontal == "V" and (i+j) % 2 == 0) or \
+				   	(leftHorizontal == "M" and (i+j) % 2 == 1):
 
 					adjList[(i,j)].append((i,j+1))
 					adjList[(i,j)].append((i+1,j))
