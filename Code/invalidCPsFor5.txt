@@ -1,0 +1,2 @@
+minimally invalid: ['NEWN', 'NEWS', 'SEWN', 'SEWS']
+non-min invalid: []
