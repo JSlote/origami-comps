@@ -14,3 +14,7 @@
 	- Define a "recursive" crease pattern
 	- Show that we can draw the perimeter on the nth crease pattern in a way that ~covers the nth hilbert curve
 	- $$940F17$$
+
+Supplies:
+- much square
+- very ruler
