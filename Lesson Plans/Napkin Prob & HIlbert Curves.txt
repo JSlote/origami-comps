@@ -1,0 +1,16 @@
+- The Napkin Problem: can you, and if so, how much bigger?
+	- Exploration: try to solve it for a bit
+	- report back?
+- Answer: Yes, \infty!
+- Let's detour to Hilbert Curves
+	- Def'n of curve
+	- Define Hilbert H_n
+	- Exploration: draw & conjecture about the length of H_n
+	- Prove l(H_n) = 2^n-1/2^n
+	- We can find a hilbert curve longer than any length
+	- Continuing this process forever yields H, a space-filling curve, yay!
+		Length & Area are different! Look at DIMENSIONS!! WUUUUUUUT
+-Using Hilbert Curves to solve napkin problem
+	- Define a "recursive" crease pattern
+	- Show that we can draw the perimeter on the nth crease pattern in a way that ~covers the nth hilbert curve
+	- $$940F17$$
