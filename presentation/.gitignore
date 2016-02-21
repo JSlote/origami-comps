@@ -1,0 +1,10 @@
+*.aux
+*.log
+*.gz
+*.gz(busy)
+*.swp
+*.synctex
+*.nav
+*.out
+*.snm
+*.toc
