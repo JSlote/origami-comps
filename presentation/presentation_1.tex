@@ -196,7 +196,16 @@ Circle Squaring
 
 \begin{frame}
 \frametitle{Angle Trisection}
-INCLUDE PARTIALLY FOLDED DIAGRAMS
+\begin{center}
+\includegraphics[width.8=\textwidth]{constructions/trisection_1.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Angle Trisection}
+\begin{center}
+\includegraphics[width.8=\textwidth]{constructions/trisection_2.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -609,9 +618,9 @@ Trefoil knot!
 \begin{frame} 
 \frametitle{Determining flat-foldability}
 
-\begin{block}{Question:}
-Is this crease pattern flat-foldable?
-\end{block} 
+\begin{block}{Goal:}
+Given a crease pattern, determine if it is flat-foldable.
+\end{block}
 
 \bigskip
 
@@ -851,38 +860,13 @@ Label each face as being light-side or dark-side up in \textit{any} folding.
 A \textit{partial ordering} $P$ on a set $S$ is a set of ordered pairs of elements of $S$ that orders some of the elements of $S$.
 \end{block}
 
-\medskip
+\bigskip
+\bigskip
+\bigskip
 
-\underline{Example:} \\
-
-\smallskip
 \pause
 
-$S = \{a, b, c, d\}$ \\
-
-\smallskip
-\pause
-
-A partial ordering $P$ on $S$ might be $\{(a\rightarrow b),(c\rightarrow d)\}$. \\
-
-\smallskip
-\pause
-
-In every linear ordering that satisfies $P$, we know $a\rightarrow b$ and $c\rightarrow d$. \\
-
-\smallskip
-\pause
-
-Note however that there are many such linear orderings: \\
-
-\smallskip
-\pause
-
-$a\rightarrow b\rightarrow c\rightarrow d$ \\
-\pause
-$a\rightarrow c\rightarrow b\rightarrow d$ \\
-$c\rightarrow d \rightarrow a \rightarrow b$ \\
-...
+We will denote this an ordered pair as $a \rightarrow b$  (``$a$ covers $b$'')
 
 \end{frame}
 
@@ -1121,7 +1105,7 @@ Enumerate the realizable configurations of twin butterfly pairs.
 \subsection{Formal Proof}
 
 \begin{frame}
-\frametitle{Conditions for flat-foldability}
+\frametitle{Linear Orderings: Conditions for Validity}
 
 \begin{block}{Theorem: (Nishat and Whitesides 2013)}
 A linear ordering $\O$ of faces is flat-foldable if and only if $(i)$ $\O$ satisfies the partial ordering given by the map and $(ii)$ every pair of twin butterflies stacks or nests in $\O$. 
@@ -1161,7 +1145,7 @@ A linear ordering $\O$ of faces is flat-foldable if and only if $(i)$ $\O$ satis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{Conditions for flat-foldability}
+\frametitle{Linear Orderings: Conditions for Validity}
 
 \begin{block}{Theorem: (Nishat and Whitesides 2013)}
 A linear ordering $\O$ of faces is flat-foldable if and only if $(i)$ $\O$ satisfies the partial ordering given by the map and $(ii)$ every pair of twin butterflies stacks or nests in $\O$. 
@@ -1207,6 +1191,7 @@ Algorithm for determining whether or not a linear ordering is valid:
 \bigskip
 
 \pause
+
 This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 
 \bigskip
@@ -1214,6 +1199,40 @@ This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 \pause
 
 \textbf{Summary:} If someone says ``This map can be flat-folded, here is the folding,'' we can quickly test whether or not they were correct.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{block}{Goal:}
+Given a crease pattern, determine if it is flat-foldable.
+\end{block}
+
+\begin{block}{Result:}
+Given a linear order, we can determine if it is flat-folded really fast.
+\end{block}
+
+\medskip
+
+\textbf{Leveraging this into a solution:} \\
+
+\smallskip
+
+Given a crease pattern, check every linear ordering. \\
+
+\smallskip
+
+If any of them are valid, then it is flat-foldable. \\
+
+\smallskip
+
+If none of them are valid, then it is not flat-foldable.
+
+\begin{block}{Theorem: (Vinitsky 2016)}
+\textsc{Map Flat Foldability} $\in$ NP
+\end{block}
 
 \end{frame}
 
@@ -1414,7 +1433,7 @@ For every meander of order $n$ can be produced from some meander of order $n-1$ 
 Two issues to address:
 \begin{enumerate}
 \item Different twists yield the same meander (double counting)
-\item Shuffling is necessary but greatly decreases double counting
+\item Shuffling is necessary but further increases double counting
 \end{enumerate}
 \end{frame}
 
@@ -1472,12 +1491,11 @@ M^s_n &= 2H(n)
 
 \bibitem[Nishat and Whitesides, 2013]{p1} Rahnuma Islam Nishat and Sue Whitesides (2013)
 \newblock Map Folding
-\newblock \emph{Canadian Conference on Computational Geomery (2013)}, p49-52
+\newblock \emph{Canadian Conference on Computational Geometry (2013)}, p49-52
 
 \end{thebibliography}
 }
 \end{frame}
-
 
 
 %------------------------------------------------
