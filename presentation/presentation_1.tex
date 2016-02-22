@@ -286,7 +286,9 @@ An example of a crease pattern:
 \begin{block}{Crease Assignments}
 A crease pattern doesn't contain all the information about a model, however. 
 \end{block}
+\begin{center}
 \includegraphics[width=.5\textwidth]{foldability_pix/mountain-valley.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -312,8 +314,8 @@ is there a way to fold it at all?
 \subsection{Local Flat Foldability}
 
 \begin{frame}
-\frametitle{Kawasaki's Theorem}
-\begin{block}{Theorem}
+\frametitle{Flat-Foldability Conditions}
+\begin{block}{Kawasaki's Theorem (1989)}
 The alternate angles around a vertex must sum to $180^\circ$.
 \end{block}
 \includegraphics[width=\textwidth]{foldability_pix/kawasaki_passfail.pdf}
@@ -324,15 +326,11 @@ The alternate angles around a vertex must sum to $180^\circ$.
 \end{frame}
 
 \begin{frame}
-\frametitle{Maekawa's Theorem}
-\begin{block}{Theorem}
+\frametitle{Flat-Foldability Conditions}
+\begin{block}{Maekawa's Theorem (1986)}
 The sum of mountain + valley is $\pm 2$. 
 \end{block}
 \includegraphics[width=\textwidth]{foldability_pix/maekawa_img.pdf}
-\end{frame}
-\begin{frame}
-\frametitle{Maekawa's Theorem}
-\includegraphics[width=\textwidth]{foldability_pix/maekawa_proof.pdf}
 \end{frame}
 
 \begin{frame}
@@ -340,7 +338,7 @@ The sum of mountain + valley is $\pm 2$.
 \begin{block}{}
 How can we determine flat foldability for a more complicated pattern?
 \newline
-(a picture of a complicated crease pattern)
+%(a picture of a complicated crease pattern)
 \end{block}
 \end{frame}
 
@@ -349,8 +347,9 @@ How can we determine flat foldability for a more complicated pattern?
 \begin{block}{}
 Here's a crease pattern that can't fold flat!
 \end{block}
-(a picture of the thing)
-
+\begin{center}
+\includegraphics[width=.5\textwidth]{foldability_pix/unfoldable.pdf}
+\end{center}
 \end{frame}
 
 %% BEFORE GOING ON %%
@@ -422,8 +421,7 @@ If we draw something on the flat piece of paper before folding it up, what can h
 \column{.45\textwidth}
 We'll see what happens when we draw Jordan curves on the crease patterns, like the picture on the right. 
 \column{.45\textwidth}
-%\includegraphics[width=\textwidth]{}
-(a picture of a Jordan curve on a crease pattern)
+\includegraphics[width=\textwidth]{knot_pix/j-curve-birdbase.pdf}
 \end{columns}
 \end{frame}
 
@@ -431,24 +429,22 @@ We'll see what happens when we draw Jordan curves on the crease patterns, like t
 
 \begin{frame}
 \frametitle{Knot Theory 101}
-\begin{block}{What is a knot?}
-Here's how we think of a knot mathematically. 
+\begin{block}{}
+What is a knot?
 \end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{Knot Theory 101}
+\pause
 \begin{columns}[c]
 \column{.45\textwidth}
 \centering
 \includegraphics[width=.8\textwidth]{knot_pix/unknot.pdf}
+\pause
 \column{.45\textwidth}
 \includegraphics[width=\textwidth]{knot_pix/untrivial-unknot.pdf}
 \end{columns}
 \end{frame}
 
 \begin{frame}
-\frametitle{Knots}
+\frametitle{Knot Theory 101}
 \begin{columns}[c]
 \column{.45\textwidth}
 This is the \textit{trefoil knot}. We can't ``untangle'' it, no matter how hard we try. 
@@ -463,15 +459,48 @@ This is the \textit{trefoil knot}. We can't ``untangle'' it, no matter how hard 
 \begin{theorem}
 A folding of a crease pattern $C$ is valid if and only if every Jordan curve embedded in the paper before folding is mapped to the unknot after folding. 
 \end{theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Connecting Topology and Origami}
+\begin{block}{$\implies$}
+This direction is fairly intuitive. 
+\end{block}
 \pause
-It's obvious that the first direction is true (we can't cause knot without invalid folding)
+\begin{center}
+\includegraphics[width=.6\textwidth]{knot_pix/trivial-1.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Connecting Topology and Origami}
+\begin{block}{$\implies$}
+This direction is fairly intuitive. 
+\end{block}
+\begin{columns}[c]
+\column{.3\textwidth}
+\begin{center}
+\includegraphics[width=.8\textwidth]{knot_pix/trivial-2.pdf}
+\end{center}
+\pause
+\column{.3\textwidth}
+\includegraphics[width=.7\textwidth]{knot_pix/trivial-3.pdf}
+\pause
+\column{.3\textwidth}
+\includegraphics[width=.5\textwidth]{knot_pix/trivial-4.pdf}
+\end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{Connecting Topology and Origami}
 \begin{block}{}
-Invalid folding means intersection. Locally, intersection looks like this. 
+Invalid folding means intersection. 
 \end{block}
+\begin{columns}[c]
+\column{.5\textwidth}
+\includegraphics[width=.7\textwidth]{knot_pix/finding-ribbon_1.pdf}
+\column{.5\textwidth}
+\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -479,6 +508,12 @@ Invalid folding means intersection. Locally, intersection looks like this.
 \begin{block}{}
 We can connect up the paper like this. 
 \end{block}
+\begin{columns}[c]
+\column{.5\textwidth}
+\includegraphics[width=.7\textwidth]{knot_pix/finding-ribbon_1.pdf}
+\column{.5\textwidth}
+\includegraphics[width=.7\textwidth]{knot_pix/finding-ribbon_2.pdf}
+\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -486,19 +521,41 @@ We can connect up the paper like this.
 \begin{block}{}
 We can draw a curve like this. 
 \end{block}
+\begin{center}
+\includegraphics[width=.7\textwidth]{knot_pix/marking-jordan.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Connecting Topology and Origami}
 \begin{block}{}
-As you can see, it's a knot!
+Is it a knot?
 \end{block}
+\begin{columns}[c]
+\column{.25\textwidth}
+\includegraphics[width=.9\textwidth]{knot_pix/knot_1.pdf}
+\column{.25\textwidth}
+\pause
+\includegraphics[width=.9\textwidth]{knot_pix/knot_2.pdf}
+\column{.25\textwidth}
+\pause
+\includegraphics[width=.7\textwidth]{knot_pix/knot_3.pdf}
+\column{.25\textwidth}
+\pause
+\includegraphics[width=.7\textwidth]{knot_pix/knot_4.pdf}
+\pause
+
+Trefoil knot!
+\end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{Connecting Topology and Origami}
-\begin{block}{}
-We've skipped over some details, but you can ask us if you don't believe our proof. 
+\begin{block}{Now what? }
+\begin{itemize}
+\item Maybe a characteristic for crease patterns
+\item Finding ways to describe the complexity of a crease pattern or a folding (e.g. the number of self-intersections)
+\end{itemize}
 \end{block}
 \end{frame}
 
@@ -687,7 +744,7 @@ Label each face as being light-side or dark-side up in \textit{any} folding.
 
 \begin{columns}[c]
 \column{.45\textwidth}
-\includegraphics[width=\textwidth]{sam_images/checkerboard-3b.pdf}
+\includegraphics[width=\textwidth]{sam_images/checkerboard-3c.pdf}
 
 \column{.45\textwidth}
 \includegraphics[width=.9\textwidth]{sam_images/checkerboard-3a.pdf}
@@ -710,7 +767,7 @@ Label each face as being light-side or dark-side up in \textit{any} folding.
 
 \begin{columns}[c]
 \column{.45\textwidth}
-\includegraphics[width=\textwidth]{sam_images/checkerboard-3c.pdf}
+\includegraphics[width=\textwidth]{sam_images/checkerboard-3b.pdf}
 
 \column{.45\textwidth}
 \includegraphics[width=.9\textwidth]{sam_images/checkerboard-3a.pdf}
@@ -823,26 +880,6 @@ Use checkerboard pattern and crease assignments to tell, for each pair of adjace
 
 \begin{columns}[c]
 \column{.45\textwidth}
-\includegraphics[width=\textwidth]{sam_images/checkerboard-tile-M.pdf}
-
-\column{.45\textwidth}
-\includegraphics[width=.9\textwidth]{sam_images/checkerboard-3d.pdf}
-
-\end{columns}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Partial Ordering}
-\begin{block}{Goal:}
-Use checkerboard pattern and crease assignments to tell, for each pair of adjacent faces, which face comes first in \textit{all} linear orderings.
-\end{block}
-
-\bigskip
-
-\begin{columns}[c]
-\column{.45\textwidth}
 \includegraphics[width=\textwidth]{sam_images/cboard-valley-tile.pdf}
 
 \pause
@@ -853,25 +890,7 @@ Use checkerboard pattern and crease assignments to tell, for each pair of adjace
 \end{columns}
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Partial Ordering}
-\begin{block}{Goal:}
-Use checkerboard pattern and crease assignments to tell, for each pair of adjacent faces, which face comes first in \textit{all} linear orderings.
-\end{block}
 
-\bigskip
-
-\begin{columns}[c]
-\column{.45\textwidth}
-\includegraphics[width=\textwidth]{sam_images/checkerboard-tile-V.pdf}
-
-\column{.45\textwidth}
-\includegraphics[width=.9\textwidth]{sam_images/checkerboard-3a.pdf}
-
-\end{columns}
-
-\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
@@ -1306,6 +1325,13 @@ M^s_n &= 2H(n)
 \end{theorem}
 \end{frame}
 
+\begin{frame}
+\begin{center}
+\Huge{Make sure to stop by our exhibit in the Gould Library!}
+\end{center}
+\Large{\centerline{\emph{Opening Spring Term 2016}}}
+\end{frame}
+
 %____________________________________%
 %_______ EXAMPLE SLIDES BELOW _______%
 %________________ || ________________%
@@ -1332,10 +1358,6 @@ M^s_n &= 2H(n)
 \end{frame}
 
 %------------------------------------------------
-
-\begin{frame}
-\Huge{\centerline{Q.E.D.}}
-\end{frame}
 
 %---------------------------------------------------
 
