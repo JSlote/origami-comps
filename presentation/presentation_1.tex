@@ -608,6 +608,8 @@ Is this crease pattern flat-foldable?
 
 \includegraphics[width=\textwidth]{sam_images/yes-map-2.pdf}
 
+\pause
+
 \column{.3\textwidth}
 \includegraphics[width=\textwidth]{sam_images/no-map.pdf}
 
@@ -670,6 +672,12 @@ How can we represent a folded form?
 red $\rightarrow$ yellow $\rightarrow$ green $\rightarrow$ blue
 
 \end{columns}
+
+\pause
+
+\begin{block}{Note:}
+Each linear ordering corresponds with exactly one folded form.
+\end{block}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -744,7 +752,7 @@ Label each face as being light-side or dark-side up in \textit{any} folding.
 
 \begin{columns}[c]
 \column{.45\textwidth}
-\includegraphics[width=\textwidth]{sam_images/checkerboard-3c.pdf}
+\includegraphics[width=\textwidth]{sam_images/checkerboard-3b.pdf}
 
 \column{.45\textwidth}
 \includegraphics[width=.9\textwidth]{sam_images/checkerboard-3a.pdf}
@@ -767,7 +775,7 @@ Label each face as being light-side or dark-side up in \textit{any} folding.
 
 \begin{columns}[c]
 \column{.45\textwidth}
-\includegraphics[width=\textwidth]{sam_images/checkerboard-3b.pdf}
+\includegraphics[width=\textwidth]{sam_images/checkerboard-3c.pdf}
 
 \column{.45\textwidth}
 \includegraphics[width=.9\textwidth]{sam_images/checkerboard-3a.pdf}
@@ -822,7 +830,7 @@ $S = \{a, b, c, d\}$ \\
 \smallskip
 \pause
 
-A partial ordering $S$ might be $\{(a\rightarrow b),(c\rightarrow d)\}$. \\
+A partial ordering $P$ on $S$ might be $\{(a\rightarrow b),(c\rightarrow d)\}$. \\
 
 \smallskip
 \pause
@@ -880,9 +888,51 @@ Use checkerboard pattern and crease assignments to tell, for each pair of adjace
 
 \begin{columns}[c]
 \column{.45\textwidth}
+\includegraphics[width=\textwidth]{sam_images/checkerboard-tile-M.pdf}
+
+\column{.45\textwidth}
+\includegraphics[width=.9\textwidth]{sam_images/checkerboard-3d.pdf}
+
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Partial Ordering}
+\begin{block}{Goal:}
+Use checkerboard pattern and crease assignments to tell, for each pair of adjacent faces, which face comes first in \textit{all} linear orderings.
+\end{block}
+
+\bigskip
+
+\begin{columns}[c]
+\column{.45\textwidth}
 \includegraphics[width=\textwidth]{sam_images/cboard-valley-tile.pdf}
 
 \pause
+
+\column{.45\textwidth}
+\includegraphics[width=.9\textwidth]{sam_images/checkerboard-3a.pdf}
+
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Partial Ordering}
+\begin{block}{Goal:}
+Use checkerboard pattern and crease assignments to tell, for each pair of adjacent faces, which face comes first in \textit{all} linear orderings.
+\end{block}
+
+\bigskip
+
+\begin{columns}[c]
+\column{.45\textwidth}
+\includegraphics[width=\textwidth]{sam_images/checkerboard-tile-V.pdf}
 
 \column{.45\textwidth}
 \includegraphics[width=.9\textwidth]{sam_images/checkerboard-3a.pdf}
@@ -987,20 +1037,21 @@ Is satisfying this partial ordering enough to ensure foldability? \pause \textbf
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{Butterfly Condition}
 
 \begin{block}{Goal:}
-Enumerate the realizable configurations of \textit{twin butterfly} pairs.
+Enumerate the realizable configurations of twin butterfly pairs.
 \end{block}
 
 \bigskip
 
 \begin{columns}[c]
 \column{.45\textwidth}
-\includegraphics[width=\textwidth]{sam_images/butterfly-big-stack.pdf}
+\includegraphics[width=\textwidth]{sam_images/bad-butterfly.pdf}
 
 \end{columns}
 
@@ -1030,24 +1081,7 @@ Enumerate the realizable configurations of twin butterfly pairs.
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{Butterfly Condition}
-
-\begin{block}{Goal:}
-Enumerate the realizable configurations of twin butterfly pairs.
-\end{block}
-
-\bigskip
-
-\begin{columns}[c]
-\column{.45\textwidth}
-\includegraphics[width=\textwidth]{sam_images/bad-butterfly.pdf}
-
-\end{columns}
-
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1056,7 +1090,7 @@ Enumerate the realizable configurations of twin butterfly pairs.
 \begin{frame}
 \frametitle{Conditions for flat-foldability}
 
-\begin{block}{Theorem:}
+\begin{block}{Theorem: (Nishat and Whitesides 2013)}
 A linear ordering $\O$ of faces is flat-foldable if and only if $(i)$ $\O$ satisfies the partial ordering given by the map and $(ii)$ every pair of twin butterflies stacks or nests in $\O$. 
 \end{block}
 
@@ -1077,14 +1111,15 @@ A linear ordering $\O$ of faces is flat-foldable if and only if $(i)$ $\O$ satis
 
 \pause
 
+\column{.4\textwidth}
+\includegraphics[width=.7\textwidth]{sam_images/bad-butterfly.pdf}
+
 \column{.3\textwidth}
 \includegraphics[width=.8\textwidth]{sam_images/butterfly-stack.pdf}
 
 \bigskip
 \includegraphics[width=.8\textwidth]{sam_images/butterfly-nest.pdf}
 
-\column{.4\textwidth}
-\includegraphics[width=.7\textwidth]{sam_images/bad-butterfly.pdf}
 
 \end{columns}
 
@@ -1095,7 +1130,7 @@ A linear ordering $\O$ of faces is flat-foldable if and only if $(i)$ $\O$ satis
 \begin{frame}
 \frametitle{Conditions for flat-foldability}
 
-\begin{block}{Theorem: (Nishat and Whitesides)}
+\begin{block}{Theorem: (Nishat and Whitesides 2013)}
 A linear ordering $\O$ of faces is flat-foldable if and only if $(i)$ $\O$ satisfies the partial ordering given by the map and $(ii)$ every pair of twin butterflies stacks or nests in $\O$. 
 \end{block}
 
@@ -1350,12 +1385,21 @@ M^s_n &= 2H(n)
 \frametitle{References}
 \footnotesize{
 \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-\bibitem[Smith, 2012]{p1} John Smith (2012)
-\newblock Title of the publication
-\newblock \emph{Journal Name} 12(3), 45 -- 678.
+
+
+% \bibitem[Smith, 2012]{p1} John Smith (2012)
+% \newblock Title of the publication
+% \newblock \emph{Journal Name} 12(3), 45 -- 678.
+
+\bibitem[Nishat and Whitesides, 2013]{p1} Rahnuma Islam Nishat and Sue Whitesides (2013)
+\newblock Map Folding
+\newblock \emph{Canadian Conference on Computational Geomery (2013)}, p49-52
+
 \end{thebibliography}
 }
 \end{frame}
+
+
 
 %------------------------------------------------
 
