@@ -105,6 +105,16 @@ Carleton College \\ % Your institution for the title page
 \end{frame}
 
 \begin{frame}
+\frametitle{Origami? Math?}
+Image of traditional crane; image of fortune teller
+\end{frame}
+
+\begin{frame}
+\frametitle{Origami? Math?}
+Image of solar panel deployment; image of chemistry microstructure stuff
+\end{frame}
+
+\begin{frame}
 \frametitle{Overview} % Table of contents slide, comment this block out to remove it
 \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
 \end{frame}
@@ -379,7 +389,7 @@ How can we capture the notion of a folded paper?
 \pause
 \begin{columns}[c]
 \column{.45\textwidth}
-\includegraphics[width=\textwidth]{foldability_pix/unfolded.pdf}
+%\includegraphics[width=\textwidth]{foldability_pix/unfolded.pdf}
 
 \pause
 \column{.45\textwidth}
@@ -1199,14 +1209,14 @@ This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Counting Problems}
+\section{Combinatorics of Origami}
 
 \newcommand{\R}{\mathsf{R}}
 \renewcommand{\L}{\mathsf{L}}
 
 \begin{frame}
 	\begin{center}
-	\Huge{Counting Origami}
+	\Huge{Counting Problems}
 	\end{center}
 \end{frame}
 
@@ -1216,17 +1226,18 @@ This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 \begin{itemize}
 \item How many ways can we fold an $m\times n$ map?
 	\begin{itemize}
-	\item<2-> How many ways can we fold a $1\times m$ map?
+	\item<2-> How many ways can we fold a $1\times n$ map?
 	\end{itemize}
 \item How many $m\times n$ map crease patterns have a valid folding?
 	\begin{itemize}
-	\item<3-> How many $1\times m$ map crease pattern have a valid folding?
+	\item<3-> How many $1\times n$ map crease pattern have a valid folding?
 	\end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Star Patterns}
+\pause
 \begin{center}
 \includegraphics[width=.8\textwidth]{meanders/star-cp.pdf}
 \end{center}
@@ -1236,10 +1247,21 @@ This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 
 \begin{frame}
 \frametitle{Representing foldings of Star Patterns}
+\pause
 \begin{center}
 \includegraphics[width=\textwidth]{meanders/star-to-meander.pdf}
 \end{center}
+\end{frame}
 
+\subsection{Meanders}
+\begin{frame}
+\frametitle{Meanders}
+\begin{definition}[Closed Meanders]
+An \emph{closed meander} of order $n$ has two collections of $n$ arches such that when they are placed opposite each other on a line, they form a Jordan curve.
+\end{definition}
+\begin{center}
+\includegraphics[width=.8\textwidth]{meanders/meander-defn.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -1271,13 +1293,20 @@ This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 4 & 42 \\
 5 & 262 \\
 \vdots & \vdots\\
-\pause
-10 & \pause 8,152,860 \\
-\vdots & \vdots\\
+\onslide<2->{10} & \onslide<3->{8,152,860} \\
+\onslide<2->{\vdots} & \onslide<2->{\vdots}\\
 \bottomrule
 \end{tabular}
 \caption{The sequence of Meandric Numbers}
 \end{table}
+\end{frame}
+
+\subsection{Our Method}
+
+\begin{frame}
+\begin{center}
+\Huge{Our Technique}
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -1286,8 +1315,6 @@ This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 \includegraphics[width=.8\textwidth]{meanders/1-with-2.pdf}
 \end{center}
 \end{frame}
-
-\subsection{Our Method}
 
 \begin{frame}
 \frametitle{Game Plan}
@@ -1330,7 +1357,7 @@ This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 \frametitle{Will it work?}
 \textbf{Question:} Can we get all meanders by repeatedly doing this?
 \pause
-\textbf{Answer:} Sadly we cannot:
+\pause\textbf{Answer:}\pause Sadly we cannot:
 
 \begin{center}
 \includegraphics[width=.4\textwidth]{meanders/5-example.pdf}
@@ -1349,8 +1376,17 @@ This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 \begin{frame}
 \frametitle{Meanders}
 \begin{theorem}
-All meanders may be built from $m_1 = \circ$ with at most one shuffle after each twist.
+For every meander of order $n$ can be produced from some meander of order $n-1$ with a single twist and at most one shuffle.
 \end{theorem}
+\end{frame}
+
+\subsection{Partial Solution}
+\begin{frame}
+Two issues to address:
+\begin{enumerate}
+\item Different twists yield the same meander (double counting)
+\item Shuffling is necessary but greatly decreases double counting
+\end{enumerate}
 \end{frame}
 
 \begin{frame}
