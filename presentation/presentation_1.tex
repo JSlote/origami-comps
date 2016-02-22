@@ -362,9 +362,11 @@ The alternate angles around a vertex must sum to $180^\circ$.
 \begin{frame}
 \frametitle{Flat-Foldability Conditions}
 \begin{block}{Maekawa's Theorem (1986)}
-The sum of mountain + valley is $\pm 2$. 
+The difference between the number of mountain and valley folds is $\pm 2$. 
 \end{block}
-\includegraphics[width=\textwidth]{foldability_pix/maekawa_img.pdf}
+\begin{center}
+\includegraphics[width=.9\textwidth]{foldability_pix/maekawa_img.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -407,15 +409,9 @@ How can we capture the notion of a folded paper?
 \pause
 \begin{columns}[c]
 \column{.45\textwidth}
-<<<<<<< HEAD
 \includegraphics[width=\textwidth]{knot_pix/unfolded.pdf}
-=======
-%\includegraphics[width=\textwidth]{foldability_pix/unfolded.pdf}
->>>>>>> 4674a45ca7ecc3d2c5a137a43677a55fe3232604
-
 \pause
 \column{.45\textwidth}
-%\includegraphics[width=\textwidth]{}
 \includegraphics[width=\textwidth]{knot_pix/folded-valid.pdf}
 \end{columns}
 \end{frame}
@@ -1245,45 +1241,32 @@ If none of them are valid, then it is not flat-foldable.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-<<<<<<< HEAD
-\section{Meanders}
-=======
 \section{Combinatorics of Origami}
->>>>>>> 4674a45ca7ecc3d2c5a137a43677a55fe3232604
 
 \newcommand{\R}{\mathsf{R}}
 \renewcommand{\L}{\mathsf{L}}
 
-<<<<<<< HEAD
-=======
 \begin{frame}
 	\begin{center}
 	\Huge{Counting Problems}
 	\end{center}
 \end{frame}
->>>>>>> 4674a45ca7ecc3d2c5a137a43677a55fe3232604
 
 \begin{frame}
 \frametitle{Counting Problems in Origami}
 \begin{itemize}
 \item How many ways can we fold an $n\times m$ map?
 	\begin{itemize}
-<<<<<<< HEAD
-	\item How many ways can we fold a $1\times m$ map?
-=======
+
 	\item<2-> How many ways can we fold a $1\times n$ map?
->>>>>>> 4674a45ca7ecc3d2c5a137a43677a55fe3232604
 	\end{itemize}
 \item How many $n\times m$ map crease patterns can be folded, period?
 	\begin{itemize}
-<<<<<<< HEAD
-	\item How many ways can we fold a $1\times m$ map?
-=======
 	\item<3-> How many $1\times n$ map crease pattern have a valid folding?
->>>>>>> 4674a45ca7ecc3d2c5a137a43677a55fe3232604
+
 	\end{itemize}
 \end{itemize}
-\end{frame}
+	\end{frame}
 
 \begin{frame}
 \frametitle{Star Patterns}
@@ -1307,7 +1290,7 @@ If none of them are valid, then it is not flat-foldable.
 \begin{frame}
 \frametitle{Meanders}
 \begin{definition}[Closed Meanders]
-An \emph{closed meander} of order $n$ has two collections of $n$ arches such that when they are placed opposite each other on a line, they form a Jordan curve.
+A \emph{closed meander} of order $n$ has two collections of $n$ arches such that when they are placed opposite each other on a line, they form a Jordan curve.
 \end{definition}
 \begin{center}
 \includegraphics[width=.8\textwidth]{meanders/meander-defn.pdf}
@@ -1355,7 +1338,7 @@ An \emph{closed meander} of order $n$ has two collections of $n$ arches such tha
 
 \begin{frame}
 \begin{center}
-\Huge{Our Technique}
+\Huge{Our Method}
 \end{center}
 \end{frame}
 
@@ -1407,7 +1390,7 @@ An \emph{closed meander} of order $n$ has two collections of $n$ arches such tha
 \frametitle{Will it work?}
 \textbf{Question:} Can we get all meanders by repeatedly doing this?
 \pause
-\pause\textbf{Answer:}\pause Sadly we cannot:
+\textbf{Answer:}\pause Sadly we cannot:
 
 \begin{center}
 \includegraphics[width=.4\textwidth]{meanders/5-example.pdf}
