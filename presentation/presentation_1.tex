@@ -1279,14 +1279,14 @@ If none of them are valid, then it is not flat-foldable.
 \begin{frame}
 \frametitle{Counting Problems in Origami}
 \begin{itemize}
-\item How many ways can we fold an $n\times m$ map?
+\item How many ways can we fold an $m\times n$ map?
 	\begin{itemize}
 
 	\item<2-> How many ways can we fold a $1\times n$ map?
 	\end{itemize}
-\item How many $n\times m$ map crease patterns can be folded, period?
+\item How many $m\times n$ map crease patterns can be folded, period?
 	\begin{itemize}
-	\item<3-> How many $1\times n$ map crease pattern have a valid folding?
+	\item<3-> How many $1\times n$ map crease patterns have a valid folding?
 
 	\end{itemize}
 \end{itemize}
@@ -1414,7 +1414,7 @@ A \emph{closed meander} of order $n$ has two collections of $n$ arches such that
 \frametitle{Will it work?}
 \textbf{Question:} Can we get all meanders by repeatedly doing this?
 \pause
-\textbf{Answer:}\pause Sadly we cannot:
+\textbf{Answer:} \pause Sadly we cannot:
 
 \begin{center}
 \includegraphics[width=.4\textwidth]{meanders/5-example.pdf}
@@ -1432,8 +1432,8 @@ A \emph{closed meander} of order $n$ has two collections of $n$ arches such that
 
 \begin{frame}
 \frametitle{Meanders}
-\begin{theorem}
-For every meander of order $n$ can be produced from some meander of order $n-1$ with a single twist and at most one shuffle.
+\begin{theorem}[Slote 2016]
+Every meander of order $n$ can be produced from some meander of order $n-1$ with a single twist and at most one shuffle.
 \end{theorem}
 \end{frame}
 
@@ -1457,7 +1457,7 @@ A \emph{simple meander} is a meander of order $n$ that can be constructed withou
 \frametitle{Simple Meanders}
 \renewcommand{\P}{\mathbb{P}}
 
-\begin{theorem}[Recurrence Relation for Simple Meanders]
+\begin{theorem}[Slote 2016]
 Let $\P(k,n) = \{(x_1,x_2,\ldots,x_n) : \sum x_i = k \text{ and } x_i\ge 0 \forall i\}$. Then
 \begin{align*}
 r(n) &= \sum_{i=1}^n\sum_{P\in\P(i,n+1)}\prod^{n+1}_{k = 1} r(P_k)\\
