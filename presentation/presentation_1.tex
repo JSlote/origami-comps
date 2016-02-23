@@ -599,7 +599,6 @@ Trefoil knot!
 \end{block}
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -687,6 +686,12 @@ How hard is it to determine whether or not a map is flat-foldable?
 \begin{block}{Easier Problem:}
 How hard is it to determine whether or not a map is \textit{flat-folded}?
 \end{block}
+\bigskip
+\bigskip
+
+\pause
+
+(Reminder: Flat-foldability is a property of maps, flat-folded-ness is a property of specific foldings.)
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -864,7 +869,7 @@ A \textit{partial ordering} $P$ on a set $S$ is a set of ordered pairs of elemen
 
 \pause
 
-We will denote this an ordered pair as $a \rightarrow b$  (``$a$ covers $b$'')
+We will denote an ordered pair as $a \rightarrow b$  (``$a$ covers $b$'')
 
 \end{frame}
 
@@ -1208,26 +1213,34 @@ This can be done in $\mathcal{O}(mn)$ (linear) time, which is super fast!
 Given a crease pattern, determine if it is flat-foldable.
 \end{block}
 
+\pause
+
 \begin{block}{Result:}
 Given a linear order, we can determine if it is flat-folded really fast.
 \end{block}
 
+
+\pause
 \medskip
 
 \textbf{Leveraging this into a solution:} \\
 
+\pause
 \smallskip
 
 Given a crease pattern, check every linear ordering. \\
 
+\pause
 \smallskip
 
 If any of them are valid, then it is flat-foldable. \\
 
+\pause
 \smallskip
 
 If none of them are valid, then it is not flat-foldable.
 
+\pause
 \begin{block}{Theorem: (Vinitsky 2016)}
 \textsc{Map Flat Foldability} $\in$ NP
 \end{block}
