@@ -67,9 +67,9 @@
 % \usecolortheme{fly}
 % \usecolortheme{lily}
 % \usecolortheme{orchid}
-\usecolortheme{rose} % #Kawasaki
+% \usecolortheme{rose} % #Kawasaki
 % \usecolortheme{seagull}
-% \usecolortheme{seahorse}
+ \usecolortheme{seahorse}
 % \usecolortheme{whale}
 % \usecolortheme{wolverine}
 
@@ -105,18 +105,32 @@ Carleton College \\ % Your institution for the title page
 \end{frame}
 
 \begin{frame}
-\frametitle{Origami? Math?}
-Image of traditional crane; image of fortune teller
-\end{frame}
+\frametitle{Why Study Origami?}
+\pause
+\begin{columns}
+\column{.45\textwidth}
+\includegraphics[width=\textwidth]{intro_imgs/spanel.jpeg}
 
-\begin{frame}
-\frametitle{Origami? Math?}
-Image of solar panel deployment; image of chemistry microstructure stuff
+\vspace{3.5em}
+\tiny{http://www.nasa.gov/jpl/news/origami-style-solar-power-20140814}
+\column{.45\textwidth}
+\includegraphics[width=\textwidth]{intro_imgs/actual-drug.png}
+
+\
+
+\tiny{Jun-Hee Na, Hayward Research Group, UMass Amherst}
+\end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{Overview} % Table of contents slide, comment this block out to remove it
-\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\begin{itemize}
+\item Origami Constructions
+\item The Basics of Foldability
+\item Map Folding: An Open Problem
+\item Combinatorics of Origami
+\end{itemize}
+
 \end{frame}
 
 %````````````````````'''''''''''''''''''%
@@ -510,7 +524,7 @@ This is the \textit{trefoil knot}. We can't ``untangle'' it, no matter how hard 
 
 \begin{frame}
 \frametitle{Connecting Topology and Origami}
-\begin{theorem}
+\begin{theorem}{Bertschinger and Slote 2016}
 A folding of a crease pattern is valid if and only if every Jordan curve embedded in the paper before folding is mapped to the unknot after folding. 
 \end{theorem}
 \end{frame}
@@ -1457,10 +1471,17 @@ A \emph{simple meander} is a meander of order $n$ that can be constructed withou
 \end{frame}
 
 \begin{frame}
+\frametitle{Another picture}
+\begin{center}
+\includegraphics[width=\textwidth]{meanders/insertion-trees.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
 \frametitle{Simple Meanders}
 \renewcommand{\P}{\mathbb{P}}
 
-\begin{theorem}[Recurrence Relation for Simple Meanders]
+\begin{theorem}[Slote 2016]
 Let $\P(k,n) = \{(x_1,x_2,\ldots,x_n) : \sum x_i = k \text{ and } x_i\ge 0 \forall i\}$. Then
 \begin{align*}
 r(n) &= \sum_{i=1}^n\sum_{P\in\P(i,n+1)}\prod^{n+1}_{k = 1} r(P_k)\\
@@ -1468,6 +1489,12 @@ H(n) &= \sum_{i=1}^n r(i) \sum_{P\in\P(i,n)}\prod^{n}_{k = 1} H(P_k)\\
 M^s_n &= 2H(n)
 \end{align*}
 \end{theorem}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Huge{Thank You!}
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -1501,16 +1528,32 @@ M^s_n &= 2H(n)
 % \newblock Title of the publication
 % \newblock \emph{Journal Name} 12(3), 45 -- 678.
 
-\bibitem[Nishat and Whitesides, 2013]{p1} Rahnuma Islam Nishat and Sue Whitesides (2013)
+\bibitem[Nishat and Whitesides, 2013]{p1} Rahnuma Islam Nishat and Sue Whitesides
 \newblock Map Folding
-\newblock \emph{Canadian Conference on Computational Geometry (2013)}, p49-52
+\newblock \emph{Canadian Conference on Computational Geometry (2013)}, p. 49-52
 
 \bibitem[Lang]{p2} Robert J. Lang
 \newblock Huzita-Justin Axioms
 \newblock \emph{Robert J. Lang Origami}
 
-\bibitem[Engle, 2012]{p3} Shepherd Engle (2012)
-\newblock Origami, Algebra, and the Cubic
+\bibitem[Engle, 2012]{p3} Shepherd Engle
+\newblock Origami, Algebra, and the Cubic (2012)
+
+\end{thebibliography}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{References}
+\footnotesize{
+\begin{thebibliography}{99}
+\bibitem[THull1]{p4} Thomas C. Hull
+\newblock The Combinatorics of Flat Folds: A Survey
+\newblock \emph{Origami\textsuperscript{3} (2002)}
+
+\bibitem[THull2]{p5} Thomas C. Hull, Sarah-Marie Belcastro
+\newblock Modelling the folding of paper into three dimensions using affine transformations
+\newblock \emph{Linear Algebra and its Applications vol. 348 (2002)}, p. 273-282
 
 \end{thebibliography}
 }
