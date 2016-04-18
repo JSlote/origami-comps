@@ -14,7 +14,7 @@
    id="svg42122"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="New document 23">
+   sodipodi:docname="trisection.svg">
   <defs
      id="defs42124" />
   <sodipodi:namedview
@@ -28,14 +28,16 @@
      inkscape:cx="775.82519"
      inkscape:cy="468.88166"
      inkscape:document-units="in"
-     inkscape:current-layer="g42082"
+     inkscape:current-layer="layer1"
      showgrid="false"
      units="in"
      inkscape:window-width="1500"
      inkscape:window-height="937"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true">
     <inkscape:grid
        type="xygrid"
        id="grid42130"
@@ -55,7 +57,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -88,7 +90,7 @@
       <path
          id="path17441-2"
          style="fill:none;stroke:#000000;stroke-width:1.12203681;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         d="M -366.17471,877.43051 -60.301727,766.01184"
+         d="m -366.17471,877.43051 224.02608,-81.60475"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cc" />
       <path
@@ -135,18 +137,18 @@
     <text
        sodipodi:linespacing="125%"
        id="text9771-6-6-9-4-9-8"
-       y="458.819"
-       x="383.72513"
-       style="font-size:191.88970947px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99999994;stroke-opacity:1;font-family:Museo Slab;-inkscape-font-specification:Museo Slab Bold"
+       y="482.79858"
+       x="354.63071"
+       style="font-size:191.88970947px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#b3b3b3;fill-opacity:1;stroke:none;font-family:Museo Slab;-inkscape-font-specification:Museo Slab Bold"
        xml:space="preserve"
        inkscape:export-filename="/home/joseph/Downloads/yes2.png"
        inkscape:export-xdpi="180.0892"
        inkscape:export-ydpi="180.0892"
        transform="matrix(1.0018215,-0.01214523,0.01210236,0.99803509,0,0)"><tspan
-         y="458.819"
-         x="383.72513"
+         y="482.79858"
+         x="354.63071"
          id="tspan9773-4-5-1-0-6-6"
          sodipodi:role="line"
-         style="font-size:245.57104492px;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99999994;stroke-opacity:1">?</tspan></text>
+         style="font-size:245.57104492px;font-weight:normal;fill:#b3b3b3;fill-opacity:1;stroke:none">?</tspan></text>
   </g>
 </svg>
